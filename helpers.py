@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 
+# Basic Operations
 def inner_product(bra, ket):
     """
     Calculates the inner product of two vectors using Dirac notation.
@@ -21,6 +22,17 @@ def outer_product(ket, bra):
     """
     return ket @ torch.conj(bra).T
 
+def tensor_product(ket, bra):
+    """
+    Calculates the tensor product of two vectors using Dirac notation.
+
+    Args:
+        ket (torch.Tensor): the Ket Vector
+        bra (torch.Tensor): the Bra Vector (before conjugation)
+    """
+    return torch.kron(ket, bra)
+
+# Checkers
 def check_orthogonal(vectors):
     """
     Check if the vectors are orthogonal (inner product is zero)
@@ -124,6 +136,8 @@ def check_valid_density_matrix(P, verbose=False):
         print("Valid density matrix")
     return True
 
+
+# Using the density matrix
 
 def determine_state(P, verbose=False):
     """
