@@ -1,6 +1,6 @@
-from helpers import *
+from .helpers import *
 import torch
-
+from math import sqrt
 
 # single qubit gates
 def X(qubit):
@@ -46,7 +46,7 @@ def H(qubit):
     Returns:
         torch.Tensor: The resulting qubit state after applying the Hadamard gate.
     """
-    h_tensor = torch.tensor([[1, 1], [1, -1]], dtype=torch.complex64) / np.sqrt(2)
+    h_tensor = torch.tensor([[1, 1], [1, -1]], dtype=torch.complex64) / sqrt(2)
     return h_tensor @ qubit
 
 def S(qubit):
