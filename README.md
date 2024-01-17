@@ -2,7 +2,7 @@
 
 <img src="assets/QuanTorchLogo.png" width="200"/>
 
-**QuanTorch** is an educational library based on Pytorch](https://pytorch.org/) to build quantum systems, the library is designed to be simple, self-contained and easy to use.
+**QuanTorch** is an educational library based on [Pytorch](https://pytorch.org/) to build quantum systems, the library is designed to be simple, self-contained and easy to use.
 
 Features:
 - No dependencies other than Pytorch.
