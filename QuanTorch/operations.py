@@ -1,4 +1,6 @@
 import torch
+
+
 # Basic Operations
 def inner_product(bra, ket):
     """
@@ -10,6 +12,7 @@ def inner_product(bra, ket):
     """
     return torch.conj(bra).T @ ket
 
+
 def outer_product(ket, bra):
     """
     Calculates the outer product of two vectors using Dirac notation.
@@ -19,6 +22,7 @@ def outer_product(ket, bra):
         bra (torch.Tensor): the Bra Vector (before conjugation)
     """
     return ket @ torch.conj(bra).T
+
 
 def tensor_product(ket, bra):
     """

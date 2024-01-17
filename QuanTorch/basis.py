@@ -1,10 +1,8 @@
-import torch
 from math import sqrt
+from .states import qstate
 
-# Define the basis vectors |0> and |1>, and the Hadamard |+> and |-> states
-
-zero = torch.tensor([[1], [0]], dtype=torch.complex64)
-one = torch.tensor([[0], [1]], dtype=torch.complex64)
-plus = torch.tensor([[1], [1]], dtype=torch.complex64) / sqrt(2)
-minus = torch.tensor([[1], [-1]], dtype=torch.complex64) / sqrt(2)
-
+# Define the basis vectors | 0 > and | 1 >, and the Hadamard | + > and | - > states
+zero = qstate([[1], [0]])
+one = qstate([[0], [1]])
+plus = qstate([[1], [1]]) / sqrt(2)
+minus = qstate([[1], [-1]]) / sqrt(2)

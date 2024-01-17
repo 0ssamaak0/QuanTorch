@@ -1,41 +1,54 @@
 import torch
 from .operations import *
 
+
 # Checkers
 def check_orthogonal(vectors):
     """
     Check if the vectors are orthogonal (inner product is zero)
     """
-    return all([inner_product(i, j) == 0 for i in vectors for j in vectors if i is not j])
+    return all(
+        [inner_product(i, j) == 0 for i in vectors for j in vectors if i is not j]
+    )
 
 
-def check_normalized(vectors):
+def check_normalized(vector):
     """
-    Check if the vectors are normalized (inner product is one)
+    Check if the vector is normalized (inner product is one)
     """
-    return all([np.isclose(inner_product(i, i).real.float(), 1) for i in vectors])
+    vectors = [vector, vector]
+    return all(
+        [
+            torch.isclose(inner_product(i, i).real.float(), torch.tensor(1.0))
+            for i in vectors
+        ]
+    )
 
 
-def check_basis(vectors, normalize=False, verbose=True):
+def check_basis(vectors, normalize=False, verbose=False):
     """
     Check if the vectors are orthogonal and normalized (orthonormal basis)
-    """ 
+    """
     # Check if all vectors are orthogonal (inner product is zero)
     orthogonal = check_orthogonal(vectors)
 
     # Check if all vectors are normalized (inner product is one)
-    normalized = check_normalized(vectors)
+    normalized = True
+    for vector in vectors:
+        normalized = normalized and check_normalized(vector)
 
     # initial print
     if verbose:
-        print(f'Vectors are orthogonal: {orthogonal} | Vectors are normalized: {normalized}')
+        print(
+            f"Vectors are orthogonal: {orthogonal} | Vectors are normalized: {normalized}"
+        )
 
     # if the vectors are not normalized, normalize them
     if not normalized and normalize and orthogonal:
         # normalize vectors (divide by the norm)
         vectors = [i / torch.sqrt(inner_product(i, i)) for i in vectors]
         if verbose:
-            print('Vectors are orthogonal but not normalized. Normalizing...')
+            print("Vectors are orthogonal but not normalized. Normalizing...")
             print(f"vectors after normalization:")
             for i in vectors:
                 print(i)
@@ -50,8 +63,10 @@ def check_qubit(vector, verbose=False):
     # 1) Check the basis first?
     # 2) Check sum of coeff.conj * coeff = 1
     coeffs = vector.tolist()
-    coeffs = [torch.tensor(coeff, dtype = torch.complex64) for coeff in coeffs]
-    sum =  torch.tensor([torch.conj(coeff) * coeff for coeff in coeffs]).real.sum().item()
+    coeffs = [torch.tensor(coeff, dtype=torch.complex64) for coeff in coeffs]
+    sum = (
+        torch.tensor([torch.conj(coeff) * coeff for coeff in coeffs]).real.sum().item()
+    )
     if torch.isclose(torch.tensor(sum), torch.tensor(1.0)).item():
         return True
     else:
@@ -78,18 +93,28 @@ def positive_operator(P, verbose=False):
         if verbose:
             print(f"Eigen values are not positive\n{L}")
         return False
-    
+
+
+# TODO
+# def check_unitary(U, verbose=False):
+#     """
+#     Check if the operator is unitary (U * U^dagger = I)
+#     """
+#     # check if the operator is square
+#     if U.shape[0] != U.shape[1]:
+
+
 def check_valid_density_matrix(P, verbose=False):
     """
-    Check if the density matrix is valid 
+    Check if the density matrix is valid
     1) Hermition
     2) trace of P is 1
     3) positive operator
     """
-    # check if the matrix is hermition
+    # check if the matrix is Hermitian
     if not torch.allclose(P, P.T.conj()):
         if verbose:
-            print("Matrix is not hermition")
+            print("Matrix is not Hermitian")
         return False
     # check if trace of P is 1
     if not torch.isclose(torch.trace(P).real, torch.tensor(1.0)).item():
