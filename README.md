@@ -29,4 +29,4 @@ Features:
 ![Dirag image](assets/dirac.png)
 
 ## Gates
-![Gates image](assets/qgates.png)
+![Gates image](assets/Qgates.png)
