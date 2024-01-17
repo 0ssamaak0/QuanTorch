@@ -4,13 +4,6 @@
 
 **QuanTorch** is an educational library based on [Pytorch](https://pytorch.org/) to build quantum systems, the library is designed to be simple, self-contained and easy to use.
 
-Features:
-- No dependencies other than Pytorch.
-- can be used with GPU.
-- modular consistent design, functions internally use other functions.
-- well documented
-
-
 ## Index:
 - Dirac Notation
     - Basis Vectors & States
