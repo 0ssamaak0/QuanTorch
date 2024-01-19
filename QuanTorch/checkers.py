@@ -96,12 +96,18 @@ def positive_operator(P, verbose=False):
 
 
 # TODO
-# def check_unitary(U, verbose=False):
-#     """
-#     Check if the operator is unitary (U * U^dagger = I)
-#     """
-#     # check if the operator is square
-#     if U.shape[0] != U.shape[1]:
+def check_unitary(U, verbose=False):
+    """
+    Check if the matrx is unitary (U * U^dagger = I)
+    """
+    # check if the matrx is Unitary
+    if not torch.allclose(U @ U.T.conj(), torch.eye(U.shape[0], dtype=torch.complex64)):
+        if verbose:
+            print("Matrix is not Unitary")
+        return False
+    if verbose:
+        print("Unitary matrix")
+    return True
 
 
 def check_valid_density_matrix(P, verbose=False):
