@@ -82,3 +82,6 @@ print(qgates.H(one))  # should be | - >
 print(qgates.CNOT(zero, one))  # should be | 0 1 >
 print(qgates.BellStateGate(zero, one))  # should be | Ψ + >
 ```
+
+# Note
+QuanTorch is an educational library, it is not meant to be in building real quantum systems that run on either simulators or quantum computers, it is just a very simple library to help you understand the concepts of quantum computing.
